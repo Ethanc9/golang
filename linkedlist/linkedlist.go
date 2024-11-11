@@ -1,4 +1,4 @@
-package main
+package linkedlist
 
 import "fmt"
 
@@ -13,7 +13,7 @@ type linkedlist struct{
 	tail *node
 }
 
-func (ll *linkedlist)insert(x int){
+func (ll *linkedlist) insert(x int){
 	// Create a new node
 	newNode := &node{value: x, next: nil, prev: nil}
 
@@ -62,12 +62,29 @@ func (ll *linkedlist) removeTail(){
 	}
 }
 
+// Remove First
+func (ll *linkedlist) removeHead(){
+	curr := ll.head
+	if curr.next != nil{
+		curr.next = ll.head
+		curr.next.prev = nil
+		return
+	} else {
+		ll.head = nil
+		ll.tail = nil
+		return
+	}
+}
+
+
+
 func main() {
 	// Create a new linked list
 	ll := &linkedlist{}
 
 	// Test insert method
 	ll.insert(10)
+	ll.removeHead()
 	ll.insert(20)
 	ll.insert(30)
 
@@ -77,6 +94,7 @@ func main() {
 
 
 	ll.insert(10)
+
 	curr = ll.head
 	for curr != nil {
 		fmt.Printf("%d ", curr.value)
